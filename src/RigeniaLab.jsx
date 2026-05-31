@@ -59,41 +59,16 @@ function iconaDispositivo(tipo) {
   }
 }
 
-const SEED = [
-  { id: 1, num: 1, anno: 2026, tipo: "Smartphone", dispositivo: "iPhone 11", cliente: "Marco Rossi", tel: "347 1234567", problema: "Sostituzione batteria", prezzo: 0, stato: "consegnato", quando: "3 sett. fa", scadenza: giornoRelativo(-21), ricambi: [{ nome: "Batteria compatibile", prezzo: 35 }], ore: 1, tariffa: 30, foto: [] },
-  { id: 2, num: 2, anno: 2026, tipo: "Audio", dispositivo: "AirPods Pro", cliente: "Elena Ferri", tel: "351 9988776", problema: "Auricolare dx muto", prezzo: 0, stato: "consegnato", quando: "4 giorni fa", scadenza: giornoRelativo(-2), ricambi: [], ore: 1, tariffa: 30, foto: [] },
-  { id: 3, num: 3, anno: 2026, tipo: "Console", dispositivo: "PS5", cliente: "Davide Conti", tel: "349 2233445", problema: "Ventola rumorosa", prezzo: 0, stato: "consegnato", quando: "3 giorni fa", scadenza: giornoRelativo(-1), ricambi: [{ nome: "Ventola + pasta termica", prezzo: 32 }], ore: 1.5, tariffa: 30, foto: [] },
-  { id: 4, num: 4, anno: 2026, tipo: "Tablet", dispositivo: "iPad 9ª gen", cliente: "Sara Neri", tel: "388 4477110", problema: "Non carica", prezzo: 70, stato: "in_lavorazione", quando: "2 giorni fa", scadenza: giornoRelativo(7), ricambi: [{ nome: "Connettore di ricarica", prezzo: 18 }], ore: 1, tariffa: 30, foto: [] },
-  { id: 5, num: 5, anno: 2026, tipo: "Laptop", dispositivo: "MacBook Air", cliente: "Luca Verdi", tel: "320 5559988", problema: "Non si accende", prezzo: 0, stato: "in_attesa", quando: "Oggi", scadenza: giornoRelativo(1), ricambi: [], ore: 0, tariffa: 35, foto: [] },
-  { id: 6, num: 6, anno: 2026, tipo: "Smartphone", dispositivo: "Samsung A52", cliente: "Giulia Bianchi", tel: "333 7654321", problema: "Batteria si scarica subito", prezzo: 60, stato: "pronto", quando: "Ieri", scadenza: giornoRelativo(5), ricambi: [{ nome: "Batteria originale", prezzo: 28 }], ore: 1, tariffa: 30, foto: [] },
-  { id: 7, num: 7, anno: 2026, tipo: "Smartphone", dispositivo: "iPhone 13", cliente: "Marco Rossi", tel: "347 1234567", problema: "Schermo rotto, no touch", prezzo: 120, stato: "in_lavorazione", quando: "Oggi", scadenza: giornoRelativo(2), ricambi: [{ nome: "Display OLED compatibile", prezzo: 65 }], ore: 1.5, tariffa: 30, foto: [] },
-];
+const SEED = [];
 
-const FORNITORI_SEED = [
-  { id: 1, nome: "MobileParts Italia", categoria: "Display · Vetri · Batterie", tel: "02 12345678", whatsapp: "390212345678", email: "ordini@mobileparts.it", sito: "mobileparts.it" },
-  { id: 2, nome: "TechRicambi", categoria: "Componenti · Connettori", tel: "06 76543210", whatsapp: "390676543210", email: "info@techricambi.it", sito: "" },
-  { id: 3, nome: "BatteryPro EU", categoria: "Batterie originali e compatibili", tel: "", whatsapp: "390511223344", email: "sales@batterypro.eu", sito: "batterypro.eu" },
-  { id: 4, nome: "Display Wholesale", categoria: "Display OLED / LCD all'ingrosso", tel: "049 9988776", whatsapp: "", email: "order@displaywholesale.com", sito: "displaywholesale.com" },
-];
+const FORNITORI_SEED = [];
 
-const ORDINI_SEED = [
-  { id: 1, articolo: "Display OLED iPhone 13", fornitore: "MobileParts Italia", stato: "in_arrivo", quando: "Ordinato ieri", lavoroNum: 7, costo: 42 },
-  { id: 2, articolo: "Batteria Samsung A52", fornitore: "BatteryPro EU", stato: "ricevuto", quando: "2 giorni fa", lavoroNum: 6, costo: 16 },
-  { id: 3, articolo: "Connettore ricarica iPad", fornitore: "TechRicambi", stato: "ordinato", quando: "Oggi", lavoroNum: 4, costo: 9 },
-  { id: 4, articolo: "Ventola PS5", fornitore: "TechRicambi", stato: "ricevuto", quando: "4 giorni fa", lavoroNum: 3, costo: 14 },
-];
+const ORDINI_SEED = [];
 
 const MESI = ["Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno", "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre"];
 
-// Mesi passati di esempio (il mese in corso è calcolato dal vivo dai dati reali)
-const STORICO_MENSILE = [
-  { anno: 2026, mese: 4, entrate: 1120, uscite: 480 },
-  { anno: 2026, mese: 3, entrate: 860, uscite: 350 },
-  { anno: 2026, mese: 2, entrate: 940, uscite: 390 },
-  { anno: 2026, mese: 1, entrate: 720, uscite: 300 },
-  { anno: 2025, mese: 12, entrate: 1340, uscite: 560 },
-  { anno: 2025, mese: 11, entrate: 1080, uscite: 450 },
-];
+// Lo storico mensile si costruisce man mano dall'uso reale (vuoto all'inizio)
+const STORICO_MENSILE = [];
 
 // Salvataggio permanente sul dispositivo. In ambienti dove lo storage è
 // disattivato (es. anteprima protetta) ricade su una copia in memoria, così
@@ -123,13 +98,18 @@ function usePersistentState(subKey, initial) {
 const css = `
 @import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap');
 .rg-wrap *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
-.rg-wrap{font-family:'Hanken Grotesk',sans-serif;display:flex;justify-content:center;min-height:560px;padding:24px 12px;
+.rg-wrap{font-family:'Hanken Grotesk',sans-serif;display:flex;justify-content:center;min-height:100vh;
   background:radial-gradient(120% 80% at 50% -10%,#101714 0%,#0A0E0C 60%,#070908 100%);}
-.rg-phone{width:100%;max-width:392px;border-radius:30px;overflow:hidden;position:relative;
-  border:1px solid #20302A;box-shadow:0 30px 80px -20px rgba(0,0,0,.8),0 0 0 6px rgba(255,255,255,.02),0 0 60px -20px rgba(91,228,155,.15);
-  display:flex;flex-direction:column;height:760px;
+.rg-phone{width:100%;position:relative;overflow:hidden;
+  display:flex;flex-direction:column;min-height:100vh;
   background:linear-gradient(180deg,rgba(9,13,11,.86) 0%,rgba(8,11,10,.93) 45%,rgba(7,9,8,.97) 100%),url(${BG});
   background-size:cover;background-position:center top;}
+/* Su schermi grandi (es. computer) mostra la cornice tipo telefono */
+@media (min-width: 520px) {
+  .rg-wrap{padding:24px 12px;min-height:560px;}
+  .rg-phone{max-width:392px;height:760px;min-height:0;border-radius:30px;
+    border:1px solid #20302A;box-shadow:0 30px 80px -20px rgba(0,0,0,.8),0 0 0 6px rgba(255,255,255,.02),0 0 60px -20px rgba(91,228,155,.15);}
+}
 .rg-disp{font-family:'Bricolage Grotesque',sans-serif;letter-spacing:-.02em;}
 .rg-mono{font-family:'JetBrains Mono',monospace;letter-spacing:-.02em;}
 .rg-topbar{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:18px 20px 14px;position:relative;}
@@ -138,7 +118,7 @@ const css = `
 .rg-time{font-family:'Bricolage Grotesque',sans-serif;font-size:42px;font-weight:800;color:#EAF2EE;line-height:.95;letter-spacing:-.02em;}
 .rg-date{font-size:15px;font-weight:600;color:#8DA39B;margin-top:5px;text-transform:capitalize;}
 .rg-toplogo{height:78px;width:auto;flex-shrink:0;filter:drop-shadow(0 4px 18px rgba(91,228,155,.3));}
-.rg-content{flex:1;overflow-y:auto;padding-bottom:82px;}
+.rg-content{flex:1;overflow-y:auto;padding-bottom:calc(82px + env(safe-area-inset-bottom));}
 .rg-stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;padding:14px 16px 12px;}
 .rg-stat{background:rgba(22,30,26,.7);backdrop-filter:blur(8px);border:1px solid rgba(91,228,155,.12);border-radius:16px;padding:13px 12px;}
 .rg-stat .n{font-size:23px;font-weight:800;color:#EAF2EE;line-height:1;font-family:'Bricolage Grotesque';}
@@ -150,7 +130,7 @@ const css = `
 .rg-tabs{display:flex;gap:8px;padding:6px 16px 10px;}
 .rg-tab{flex:1;text-align:center;padding:10px;border-radius:12px;border:1px solid rgba(91,228,155,.18);background:rgba(20,28,24,.5);color:#9DB2AA;font-size:13px;font-weight:700;cursor:pointer;transition:.15s;}
 .rg-tab.on{background:#5BE49B;color:#06140C;border-color:#5BE49B;}
-.rg-list{padding:0 14px 70px;display:flex;flex-direction:column;gap:9px;}
+.rg-list{padding:0 14px;padding-bottom:calc(80px + env(safe-area-inset-bottom));display:flex;flex-direction:column;gap:9px;}
 .rg-card{background:rgba(21,29,25,.78);backdrop-filter:blur(8px);border:1px solid rgba(91,228,155,.12);border-radius:18px;padding:14px;display:flex;gap:13px;align-items:center;cursor:pointer;transition:.18s;}
 .rg-card:active{transform:scale(.98);}
 .rg-ic{width:42px;height:42px;border-radius:13px;background:linear-gradient(140deg,rgba(91,228,155,.18),rgba(91,228,155,.05));color:#9DECC0;display:grid;place-items:center;flex-shrink:0;border:1px solid rgba(91,228,155,.2);}
@@ -166,9 +146,9 @@ const css = `
 .rg-rep{font-size:10.5px;font-weight:700;color:#9DECC0;background:rgba(91,228,155,.12);padding:3px 9px;border-radius:999px;margin-top:6px;display:inline-block;}
 .rg-alert{display:flex;align-items:center;gap:10px;margin:14px 18px 0;padding:13px 15px;border-radius:14px;font-size:13.5px;font-weight:600;}
 .rg-alert.rosso{color:#FFB0B0;background:rgba(255,138,138,.12);border:1px solid rgba(255,138,138,.3);} .rg-alert.giallo{color:#FFC97A;background:rgba(255,180,84,.12);border:1px solid rgba(255,180,84,.3);}
-.rg-fab{position:absolute;right:18px;bottom:78px;height:54px;padding:0 20px 0 16px;border:none;border-radius:17px;background:linear-gradient(140deg,#5BE49B,#22A862);color:#04130A;font-family:'Bricolage Grotesque';font-weight:800;font-size:15px;display:flex;align-items:center;gap:7px;cursor:pointer;box-shadow:0 14px 34px -8px rgba(91,228,155,.65);z-index:30;}
+.rg-fab{position:absolute;right:18px;bottom:calc(78px + env(safe-area-inset-bottom));height:54px;padding:0 20px 0 16px;border:none;border-radius:17px;background:linear-gradient(140deg,#5BE49B,#22A862);color:#04130A;font-family:'Bricolage Grotesque';font-weight:800;font-size:15px;display:flex;align-items:center;gap:7px;cursor:pointer;box-shadow:0 14px 34px -8px rgba(91,228,155,.65);z-index:30;}
 .rg-fab:active{transform:scale(.96);}
-.rg-nav{position:absolute;left:0;right:0;bottom:0;height:64px;display:flex;z-index:40;background:rgba(9,13,11,.94);backdrop-filter:blur(14px);border-top:1px solid rgba(91,228,155,.14);}
+.rg-nav{position:absolute;left:0;right:0;bottom:0;height:64px;display:flex;z-index:40;background:rgba(9,13,11,.94);backdrop-filter:blur(14px);border-top:1px solid rgba(91,228,155,.14);padding-bottom:env(safe-area-inset-bottom);height:calc(64px + env(safe-area-inset-bottom));}
 .rg-navitem{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:#647A71;font-size:9.5px;font-weight:700;cursor:pointer;transition:.15s;}
 .rg-navitem.on{color:#5BE49B;}
 .rg-h{font-size:24px;font-weight:800;color:#EAF2EE;font-family:'Bricolage Grotesque';padding:16px 20px 4px;}
@@ -251,6 +231,7 @@ const css = `
 .rg-bkp{width:100%;margin-bottom:10px;padding:14px;border-radius:14px;font-size:14.5px;font-weight:700;font-family:'Hanken Grotesk';cursor:pointer;display:flex;align-items:center;justify-content:center;gap:9px;}
 .rg-bkp.exp{border:none;background:linear-gradient(140deg,#5BE49B,#22A862);color:#06140C;}
 .rg-bkp.imp{border:1px solid rgba(91,228,155,.3);background:rgba(91,228,155,.1);color:#5BE49B;}
+.rg-bkp.danger{border:1px solid rgba(255,138,138,.4);background:rgba(255,138,138,.12);color:#FF9A9A;}
 .rg-bkp:active{transform:scale(.98);}
 .rg-bilcard{background:rgba(21,29,25,.78);backdrop-filter:blur(8px);border:1px solid rgba(91,228,155,.12);border-radius:18px;padding:15px;margin:0 14px 10px;}
 .rg-bilhead{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;}
@@ -297,10 +278,11 @@ export default function RigeniaLab() {
   const [toast, setToast] = useState(null);
   const [modal, setModal] = useState(null);
   const [supForm, setSupForm] = useState(null);
+  const [confermaReset, setConfermaReset] = useState(false);
   const [ordForm, setOrdForm] = useState(null);
-  const [nextOrdId, setNextOrdId] = usePersistentState("nextOrdId", 5);
-  const [nextNum, setNextNum] = usePersistentState("nextNum", 8);
-  const [nextId, setNextId] = usePersistentState("nextId", 8);
+  const [nextOrdId, setNextOrdId] = usePersistentState("nextOrdId", 1);
+  const [nextNum, setNextNum] = usePersistentState("nextNum", 1);
+  const [nextId, setNextId] = usePersistentState("nextId", 1);
   const [form, setForm] = useState({ tipo: "Smartphone", dispositivo: "", cliente: "", tel: "", problema: "", prezzo: "", scadenza: "", foto: [] });
   const [nrNome, setNrNome] = useState("");
   const [nrPrezzo, setNrPrezzo] = useState("");
@@ -483,6 +465,14 @@ export default function RigeniaLab() {
     };
     reader.readAsText(f);
     e.target.value = "";
+  }
+  function cancellaTutto() {
+    setRepairs([]); setFornitori([]); setOrdini([]);
+    setNextId(1); setNextNum(1); setNextOrdId(1);
+    setAzienda({ nome: "Rigenia Lab", indirizzo: "", piva: "", tel: "", email: "" });
+    setConfermaReset(false);
+    setScreen("home");
+    flash(<><Check size={15} /> Tutti i dati cancellati</>);
   }
 
   const renderOrdine = (o) => {
@@ -740,7 +730,10 @@ export default function RigeniaLab() {
               <div className="rg-bkpnote">I dati sono salvati automaticamente su questo dispositivo a ogni inserimento. Le foto vengono compresse in automatico per occupare poco spazio. Esporta un backup ogni tanto: ti protegge se cambi o perdi il telefono, e sarà il file da caricare il giorno in cui passerai al cloud o a un altro dispositivo.</div>
               <button className="rg-bkp exp" onClick={esportaBackup}><Wallet size={17} /> Esporta backup (file)</button>
               <button className="rg-bkp imp" onClick={() => importRef.current && importRef.current.click()}><RotateCcw size={17} /> Importa backup</button>
-              <div className="rg-note" style={{ margin: "12px 0 0", textAlign: "left" }}>Nota: in questa anteprima il salvataggio permanente è disattivato per sicurezza, quindi i dati si azzerano al ricaricamento. Una volta pubblicata sul telefono, l'app salverà tutto in modo permanente.</div>
+
+              <div className="rg-section" style={{ padding: "26px 0 10px", color: "#FF8A8A" }}><Trash2 size={13} /> Zona pericolosa</div>
+              <div className="rg-bkpnote">Cancella definitivamente tutti i lavori, gli ordini, i fornitori e i dati attività da questo dispositivo. Operazione irreversibile: esporta prima un backup se vuoi conservarli.</div>
+              <button className="rg-bkp danger" onClick={() => setConfermaReset(true)}><Trash2 size={17} /> Cancella tutti i dati</button>
             </div>
           </div>
         )}
@@ -977,6 +970,27 @@ export default function RigeniaLab() {
         {lightbox && (
           <div className="rg-modal center" onClick={() => setLightbox(null)}>
             <img src={lightbox} alt="foto" style={{ maxWidth: "92%", maxHeight: "80%", borderRadius: 14, border: "1px solid rgba(91,228,155,.3)" }} />
+          </div>
+        )}
+
+        {confermaReset && (
+          <div className="rg-modal center" onClick={() => setConfermaReset(false)}>
+            <div className="rg-sheet" onClick={(e) => e.stopPropagation()} style={{ borderRadius: 22, maxWidth: 360 }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 9, marginBottom: 10 }}>
+                <Trash2 size={20} color="#FF8A8A" />
+                <div className="rg-disp" style={{ fontSize: 18, fontWeight: 800, color: "#EAF2EE" }}>Cancellare tutti i dati?</div>
+              </div>
+              <div style={{ fontSize: 13.5, color: "#9DB2AA", lineHeight: 1.5, marginBottom: 16 }}>
+                Stai per eliminare <b style={{ color: "#FFB0B0" }}>tutti</b> i lavori, ordini, fornitori e dati attività da questo dispositivo. L'operazione <b>non può essere annullata</b>.
+                <br /><br />Se vuoi conservarli, chiudi e usa prima "Esporta backup".
+              </div>
+              <button onClick={cancellaTutto} style={{ width: "100%", padding: 15, border: "none", borderRadius: 14, background: "linear-gradient(140deg,#FF7A7A,#D24545)", color: "#1a0000", fontSize: 15, fontWeight: 800, fontFamily: "Bricolage Grotesque", cursor: "pointer" }}>
+                Sì, cancella tutto
+              </button>
+              <button onClick={() => setConfermaReset(false)} style={{ width: "100%", marginTop: 9, padding: 13, border: "1px solid rgba(91,228,155,.25)", borderRadius: 14, background: "transparent", color: "#9DB2AA", fontSize: 14, fontWeight: 700, fontFamily: "Hanken Grotesk", cursor: "pointer" }}>
+                Annulla
+              </button>
+            </div>
           </div>
         )}
 
