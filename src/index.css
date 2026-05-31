@@ -1,19 +1,28 @@
 * { box-sizing: border-box; }
 
 /* Blocca lo scorrimento "elastico" della pagina: l'app si comporta come
-   un'app nativa, non come un sito che rimbalza. Solo le aree interne scorrono. */
+   un'app nativa, non come un sito che rimbalza. Solo le aree interne scorrono.
+   La pagina di fondo viene forzata a coprire TUTTA l'altezza reale dello
+   schermo (anche l'ultimo pixel in basso), così non resta nessuna fascia nera. */
 html, body {
   margin: 0;
   padding: 0;
-  height: 100%;
-  overflow: hidden;
   position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
   background: #070908;
   overscroll-behavior: none;
 }
 #root {
-  height: 100%;
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
   overflow: hidden;
 }
 body {
