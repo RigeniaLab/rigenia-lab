@@ -1,0 +1,15 @@
+* { box-sizing: border-box; }
+html, body, #root {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+  background: #070908;
+}
+body {
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  /* rispetta le aree sicure di iPhone (notch / barra inferiore) */
+  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+}
+/* evita lo zoom-bounce su iOS quando si tocca due volte */
+* { touch-action: manipulation; }
