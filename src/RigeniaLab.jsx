@@ -118,7 +118,7 @@ const css = `
 .rg-time{font-family:'Bricolage Grotesque',sans-serif;font-size:42px;font-weight:800;color:#EAF2EE;line-height:.95;letter-spacing:-.02em;}
 .rg-date{font-size:15px;font-weight:600;color:#8DA39B;margin-top:5px;text-transform:capitalize;}
 .rg-toplogo{height:78px;width:auto;flex-shrink:0;filter:drop-shadow(0 4px 18px rgba(91,228,155,.3));}
-.rg-content{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding-bottom:calc(74px + env(safe-area-inset-bottom));}
+.rg-content{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding-bottom:calc(74px + max(env(safe-area-inset-bottom),22px));}
 .rg-stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;padding:14px 16px 12px;}
 .rg-stat{background:rgba(22,30,26,.7);backdrop-filter:blur(8px);border:1px solid rgba(91,228,155,.12);border-radius:16px;padding:13px 12px;}
 .rg-stat .n{font-size:23px;font-weight:800;color:#EAF2EE;line-height:1;font-family:'Bricolage Grotesque';}
@@ -130,7 +130,7 @@ const css = `
 .rg-tabs{display:flex;gap:8px;padding:6px 16px 10px;}
 .rg-tab{flex:1;text-align:center;padding:10px;border-radius:12px;border:1px solid rgba(91,228,155,.18);background:rgba(20,28,24,.5);color:#9DB2AA;font-size:13px;font-weight:700;cursor:pointer;transition:.15s;}
 .rg-tab.on{background:#5BE49B;color:#06140C;border-color:#5BE49B;}
-.rg-list{padding:0 14px;padding-bottom:calc(80px + env(safe-area-inset-bottom));display:flex;flex-direction:column;gap:9px;}
+.rg-list{padding:0 14px;padding-bottom:calc(80px + max(env(safe-area-inset-bottom),22px));display:flex;flex-direction:column;gap:9px;}
 .rg-card{background:rgba(21,29,25,.78);backdrop-filter:blur(8px);border:1px solid rgba(91,228,155,.12);border-radius:18px;padding:14px;display:flex;gap:13px;align-items:center;cursor:pointer;transition:.18s;}
 .rg-card:active{transform:scale(.98);}
 .rg-ic{width:42px;height:42px;border-radius:13px;background:linear-gradient(140deg,rgba(91,228,155,.18),rgba(91,228,155,.05));color:#9DECC0;display:grid;place-items:center;flex-shrink:0;border:1px solid rgba(91,228,155,.2);}
@@ -146,9 +146,9 @@ const css = `
 .rg-rep{font-size:10.5px;font-weight:700;color:#9DECC0;background:rgba(91,228,155,.12);padding:3px 9px;border-radius:999px;margin-top:6px;display:inline-block;}
 .rg-alert{display:flex;align-items:center;gap:10px;margin:14px 18px 0;padding:13px 15px;border-radius:14px;font-size:13.5px;font-weight:600;}
 .rg-alert.rosso{color:#FFB0B0;background:rgba(255,138,138,.12);border:1px solid rgba(255,138,138,.3);} .rg-alert.giallo{color:#FFC97A;background:rgba(255,180,84,.12);border:1px solid rgba(255,180,84,.3);}
-.rg-fab{position:absolute;right:18px;bottom:calc(72px + env(safe-area-inset-bottom));height:54px;padding:0 20px 0 16px;border:none;border-radius:17px;background:linear-gradient(140deg,#5BE49B,#22A862);color:#04130A;font-family:'Bricolage Grotesque';font-weight:800;font-size:15px;display:flex;align-items:center;gap:7px;cursor:pointer;box-shadow:0 14px 34px -8px rgba(91,228,155,.65);z-index:30;}
+.rg-fab{position:absolute;right:18px;bottom:calc(72px + max(env(safe-area-inset-bottom),22px));height:54px;padding:0 20px 0 16px;border:none;border-radius:17px;background:linear-gradient(140deg,#5BE49B,#22A862);color:#04130A;font-family:'Bricolage Grotesque';font-weight:800;font-size:15px;display:flex;align-items:center;gap:7px;cursor:pointer;box-shadow:0 14px 34px -8px rgba(91,228,155,.65);z-index:30;}
 .rg-fab:active{transform:scale(.96);}
-.rg-nav{position:absolute;left:0;right:0;bottom:0;height:58px;display:flex;z-index:40;background:rgba(9,13,11,.94);backdrop-filter:blur(14px);border-top:1px solid rgba(91,228,155,.14);padding-bottom:env(safe-area-inset-bottom);height:calc(58px + env(safe-area-inset-bottom));}
+.rg-nav{position:absolute;left:0;right:0;bottom:0;height:58px;display:flex;z-index:40;background:rgba(9,13,11,.94);backdrop-filter:blur(14px);border-top:1px solid rgba(91,228,155,.14);padding-bottom:max(env(safe-area-inset-bottom),22px);height:calc(58px + max(env(safe-area-inset-bottom),22px));}
 .rg-navitem{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:#647A71;font-size:9.5px;font-weight:700;cursor:pointer;transition:.15s;}
 .rg-navitem.on{color:#5BE49B;}
 .rg-h{font-size:24px;font-weight:800;color:#EAF2EE;font-family:'Bricolage Grotesque';padding:16px 20px 4px;}
