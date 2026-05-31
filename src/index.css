@@ -1,15 +1,25 @@
 * { box-sizing: border-box; }
-html, body, #root {
+
+/* Blocca lo scorrimento "elastico" della pagina: l'app si comporta come
+   un'app nativa, non come un sito che rimbalza. Solo le aree interne scorrono. */
+html, body {
   margin: 0;
   padding: 0;
-  min-height: 100%;
+  height: 100%;
+  overflow: hidden;
+  position: fixed;
+  width: 100%;
   background: #070908;
+  overscroll-behavior: none;
+}
+#root {
+  height: 100%;
+  overflow: hidden;
 }
 body {
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-  /* rispetta le aree sicure di iPhone (notch / barra inferiore) */
-  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
 }
-/* evita lo zoom-bounce su iOS quando si tocca due volte */
-* { touch-action: manipulation; }
+
+/* evita lo zoom quando si tocca due volte e blocca il pull-to-refresh */
+* { touch-action: manipulation; overscroll-behavior: none; }
