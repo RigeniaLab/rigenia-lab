@@ -148,7 +148,7 @@ const css = `
 .rg-alert.rosso{color:#FFB0B0;background:rgba(255,138,138,.12);border:1px solid rgba(255,138,138,.3);} .rg-alert.giallo{color:#FFC97A;background:rgba(255,180,84,.12);border:1px solid rgba(255,180,84,.3);}
 .rg-fab{position:absolute;right:18px;bottom:calc(72px + max(env(safe-area-inset-bottom),22px));height:54px;padding:0 20px 0 16px;border:none;border-radius:17px;background:linear-gradient(140deg,#5BE49B,#22A862);color:#04130A;font-family:'Bricolage Grotesque';font-weight:800;font-size:15px;display:flex;align-items:center;gap:7px;cursor:pointer;box-shadow:0 14px 34px -8px rgba(91,228,155,.65);z-index:30;}
 .rg-fab:active{transform:scale(.96);}
-.rg-nav{position:absolute;left:0;right:0;bottom:0;height:58px;display:flex;z-index:40;background:rgba(9,13,11,.94);backdrop-filter:blur(14px);border-top:1px solid rgba(91,228,155,.14);padding-bottom:max(env(safe-area-inset-bottom),22px);height:calc(58px + max(env(safe-area-inset-bottom),22px));}
+.rg-nav{position:absolute;left:0;right:0;bottom:0;height:58px;display:flex;z-index:40;background:#0B0F0D;backdrop-filter:blur(14px);border-top:1px solid rgba(91,228,155,.14);padding-bottom:max(env(safe-area-inset-bottom),22px);height:calc(58px + max(env(safe-area-inset-bottom),22px));}
 .rg-navitem{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:#647A71;font-size:9.5px;font-weight:700;cursor:pointer;transition:.15s;}
 .rg-navitem.on{color:#5BE49B;}
 .rg-h{font-size:24px;font-weight:800;color:#EAF2EE;font-family:'Bricolage Grotesque';padding:16px 20px 4px;}
